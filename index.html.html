@@ -1,0 +1,776 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Menú | Name Restaurant</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+:root {
+    --coral: #df8975;
+    --sand: #f0c99c;
+    --sand-light: #f8dfbd;
+    --ink: #3e4037;
+    --paper: #fffaf3;
+    --muted: #83766a;
+    --line: #e9d9c7;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background: var(--coral);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+}
+
+/* PORTADA */
+
+.cover-screen {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+}
+
+.cover {
+    position: relative;
+    width: min(100%, 590px);
+    min-height: min(900px, calc(100vh - 40px));
+    padding: 45px 22px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+
+    border: 3px solid var(--ink);
+
+    background: repeating-linear-gradient(
+        90deg,
+        var(--sand-light) 0 7px,
+        var(--sand) 7px 11px
+    );
+
+    box-shadow: 0 14px 40px #75473b30;
+}
+
+.cover:before {
+    content: "";
+    position: absolute;
+    inset: 12px;
+    border: 1px solid #4a493d70;
+    pointer-events: none;
+}
+
+.cover-top {
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+}
+
+.ribbon {
+    width: calc(100% + 44px);
+    min-height: 275px;
+    margin: 12px -22px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    background: var(--coral);
+    border-top: 3px solid var(--ink);
+    border-bottom: 3px solid var(--ink);
+    outline: 1px solid #f4c5a7;
+    outline-offset: -9px;
+}
+
+.fork {
+    font-size: 42px;
+    margin-bottom: 10px;
+}
+
+.cover-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(52px, 12vw, 82px);
+    font-weight: 600;
+    margin: 0;
+}
+
+.cover-caption {
+    font-size: 10px;
+    letter-spacing: 5px;
+    margin-top: 14px;
+    text-transform: uppercase;
+}
+
+.cover-bottom {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.restaurant-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(19px, 4vw, 27px);
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.sunburst {
+    font-size: 34px;
+}
+
+.enter {
+    margin-top: 22px;
+    padding: 13px 25px;
+
+    background: var(--ink);
+    color: var(--sand-light);
+
+    border: 1px solid var(--ink);
+    border-radius: 30px;
+
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-size: 11px;
+
+    cursor: pointer;
+    transition: .2s;
+}
+
+.enter:hover {
+    transform: translateY(-2px);
+    background: #292b25;
+}
+
+.hint {
+    font-size: 10px;
+    margin-top: 12px;
+}
+
+/* MENU */
+
+.menu-screen {
+    display: none;
+    min-height: 100vh;
+    background: var(--paper);
+    padding-bottom: 55px;
+}
+
+.menu-screen.visible {
+    display: block;
+    animation: appear .45s ease;
+}
+
+@keyframes appear {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+.menu-header {
+    background: var(--coral);
+    padding: 23px 20px 30px;
+    text-align: center;
+    border-bottom: 3px solid var(--ink);
+}
+
+.back {
+    background: transparent;
+    border: none;
+    color: var(--ink);
+    font-size: 11px;
+    cursor: pointer;
+    margin-bottom: 16px;
+}
+
+.menu-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(34px, 7vw, 52px);
+    margin: 0;
+}
+
+.menu-subtitle {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+}
+
+.menu-content {
+    max-width: 1000px;
+    margin: auto;
+    padding: 32px 22px;
+}
+
+.menu-intro {
+    text-align: center;
+    margin-bottom: 27px;
+}
+
+.kicker {
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #a56a58;
+}
+
+.menu-intro h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(28px, 5vw, 39px);
+    font-weight: 500;
+}
+
+.menu-intro p {
+    font-size: 13px;
+    line-height: 1.7;
+    color: var(--muted);
+    max-width: 520px;
+    margin: auto;
+}
+
+/* CATEGORÍAS */
+
+.categories {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin: 25px 0 34px;
+}
+
+.category {
+    border: 1px solid var(--line);
+    border-radius: 25px;
+    background: transparent;
+    padding: 10px 17px;
+    color: var(--ink);
+    font-size: 11px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.category:hover,
+.category.active {
+    background: var(--ink);
+    border-color: var(--ink);
+    color: white;
+}
+
+/* PLATILLOS */
+
+.group {
+    margin-bottom: 32px;
+}
+
+.group-title {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    margin-bottom: 14px;
+}
+
+.group-title h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 25px;
+    font-weight: 500;
+    margin: 0;
+    white-space: nowrap;
+}
+
+.group-title:after {
+    content: "";
+    height: 1px;
+    background: var(--line);
+    flex: 1;
+}
+
+.dishes {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+}
+
+.dish {
+    display: grid;
+    grid-template-columns: 100px 1fr;
+    min-height: 112px;
+
+    background: white;
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.dish img {
+    width: 100px;
+    height: 100%;
+    min-height: 112px;
+    object-fit: cover;
+    background: #ead7c2;
+}
+
+.dish-info {
+    padding: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.dish-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    gap: 8px;
+}
+
+.dish h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 500;
+    margin: 0 0 6px;
+}
+
+.price {
+    font-size: 12px;
+    font-weight: 600;
+    white-space: nowrap;
+    color: #a56a58;
+}
+
+.dish p {
+    font-size: 11px;
+    line-height: 1.5;
+    color: var(--muted);
+    margin: 0;
+}
+
+.menu-footer {
+    text-align: center;
+    border-top: 1px solid var(--line);
+    padding: 24px 10px 0;
+    color: var(--muted);
+    font-size: 10px;
+    letter-spacing: 2px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:650px) {
+
+    .cover {
+        min-height: calc(100vh - 28px);
+        padding: 25px 17px;
+    }
+
+    .ribbon {
+        min-height: 240px;
+        width: calc(100% + 34px);
+        margin-left: -17px;
+        margin-right: -17px;
+    }
+
+    .dishes {
+        grid-template-columns: 1fr;
+    }
+
+    .dish {
+        grid-template-columns: 104px 1fr;
+    }
+
+    .dish img {
+        width: 104px;
+    }
+
+    .menu-content {
+        padding: 27px 15px;
+    }
+
+    .categories {
+        justify-content: flex-start;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding: 2px 0 8px;
+    }
+
+    .category {
+        white-space: nowrap;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PORTADA -->
+
+<section class="cover-screen" id="coverScreen">
+
+    <div class="cover">
+
+        <div class="cover-top">
+            Bienvenidos · Cocina y tradición
+        </div>
+
+        <div class="ribbon">
+
+            <div class="fork">♜　◉</div>
+
+            <h1 class="cover-title">MENÚ</h1>
+
+            <div class="cover-caption">
+                Una experiencia para disfrutar
+            </div>
+
+        </div>
+
+        <div class="cover-bottom">
+
+            <p class="restaurant-name">
+                Name Restaurant
+            </p>
+
+            <div class="sunburst">✺</div>
+
+            <button class="enter" id="enterMenu">
+                Explorar menú →
+            </button>
+
+            <div class="hint">
+                Toca para descubrir nuestros platillos
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- MENÚ DIGITAL -->
+
+<section class="menu-screen" id="menuScreen">
+
+    <header class="menu-header">
+
+        <button class="back" id="backCover">
+            ← VOLVER A PORTADA
+        </button>
+
+        <p class="menu-brand">
+            Name Restaurant
+        </p>
+
+        <p class="menu-subtitle">
+            Menú · Cocina y tradición
+        </p>
+
+    </header>
+
+    <main class="menu-content">
+
+        <div class="menu-intro">
+
+            <div class="kicker">
+                Preparado para ti
+            </div>
+
+            <h1>Nuestros platillos</h1>
+
+            <p>
+                Descubre nuestra selección. Cada platillo
+                está preparado con ingredientes elegidos
+                y mucho cariño.
+            </p>
+
+        </div>
+
+
+        <!-- CATEGORÍAS -->
+
+        <nav class="categories" id="categories">
+
+            <button class="category active"
+                data-category="Todos">
+                Ver todo
+            </button>
+
+            <button class="category"
+                data-category="Entradas">
+                Entradas
+            </button>
+
+            <button class="category"
+                data-category="Principales">
+                Platos fuertes
+            </button>
+
+            <button class="category"
+                data-category="Bebidas">
+                Bebidas
+            </button>
+
+            <button class="category"
+                data-category="Postres">
+                Postres
+            </button>
+
+        </nav>
+
+
+        <!-- PRODUCTOS -->
+
+        <div id="menuItems"></div>
+
+
+        <div class="menu-footer">
+            NAME RESTAURANT · GRACIAS POR VISITARNOS
+        </div>
+
+    </main>
+
+</section>
+
+
+<script>
+
+// PLATILLOS DE EJEMPLO
+
+const dishes = [
+
+    {
+        name: "Bruschetta clásica",
+        cat: "Entradas",
+        price: 85,
+        desc: "Pan artesanal, tomate fresco, albahaca y aceite de oliva.",
+        img: "https://images.unsplash.com/photo-1572695157366-5e585ab2b69f?w=420&q=80"
+    },
+
+    {
+        name: "Alitas de la casa",
+        cat: "Entradas",
+        price: 125,
+        desc: "Alitas crujientes acompañadas de salsa de la casa.",
+        img: "https://images.unsplash.com/photo-1527477396000-e27163b481c2?w=420&q=80"
+    },
+
+    {
+        name: "Ensalada de temporada",
+        cat: "Entradas",
+        price: 110,
+        desc: "Vegetales frescos, hojas verdes y vinagreta cítrica.",
+        img: "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=420&q=80"
+    },
+
+    {
+        name: "Pasta Alfredo",
+        cat: "Principales",
+        price: 185,
+        desc: "Pasta cremosa con parmesano y un toque de pimienta.",
+        img: "https://images.unsplash.com/photo-1645112411341-6c4fd023714a?w=420&q=80"
+    },
+
+    {
+        name: "Salmón a la plancha",
+        cat: "Principales",
+        price: 265,
+        desc: "Salmón sellado con vegetales asados y limón.",
+        img: "https://images.unsplash.com/photo-1469234496837-d0101f7be037?w=420&q=80"
+    },
+
+    {
+        name: "Filete de res",
+        cat: "Principales",
+        price: 295,
+        desc: "Corte a la parrilla con puré de papa y hierbas.",
+        img: "https://images.unsplash.com/photo-1546833999-b9f581a1996d?w=420&q=80"
+    },
+
+    {
+        name: "Limonada natural",
+        cat: "Bebidas",
+        price: 48,
+        desc: "Limón recién exprimido con un toque de hierbabuena.",
+        img: "https://images.unsplash.com/photo-1513558161293-cdaf765edfd4?w=420&q=80"
+    },
+
+    {
+        name: "Café de la casa",
+        cat: "Bebidas",
+        price: 42,
+        desc: "Café aromático de tostado medio.",
+        img: "https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=420&q=80"
+    },
+
+    {
+        name: "Cheesecake",
+        cat: "Postres",
+        price: 95,
+        desc: "Pastel de queso suave con frutos rojos.",
+        img: "https://images.unsplash.com/photo-1533134242443-d4fd215305ad?w=420&q=80"
+    },
+
+    {
+        name: "Tiramisú",
+        cat: "Postres",
+        price: 105,
+        desc: "Clásico italiano con café, mascarpone y cacao.",
+        img: "https://images.unsplash.com/photo-1571877227200-a0d98ea607e9?w=420&q=80"
+    }
+
+];
+
+const labels = {
+    Entradas: "Entradas",
+    Principales: "Platos fuertes",
+    Bebidas: "Bebidas",
+    Postres: "Postres"
+};
+
+let selected = "Todos";
+
+const menuItems = document.getElementById("menuItems");
+
+
+// MOSTRAR MENÚ
+
+function renderMenu() {
+
+    const groups = selected === "Todos"
+        ? ["Entradas", "Principales", "Bebidas", "Postres"]
+        : [selected];
+
+    menuItems.innerHTML = groups.map(group => {
+
+        const rows = dishes.filter(
+            dish => dish.cat === group
+        );
+
+        return `
+            <section class="group">
+
+                <div class="group-title">
+                    <h2>${labels[group]}</h2>
+                </div>
+
+                <div class="dishes">
+
+                    ${rows.map(dish => `
+
+                        <article class="dish">
+
+                            <img
+                                src="${dish.img}"
+                                alt="${dish.name}"
+                                loading="lazy"
+                            >
+
+                            <div class="dish-info">
+
+                                <div class="dish-line">
+
+                                    <h3>${dish.name}</h3>
+
+                                    <span class="price">
+                                        $${dish.price.toFixed(2)}
+                                    </span>
+
+                                </div>
+
+                                <p>${dish.desc}</p>
+
+                            </div>
+
+                        </article>
+
+                    `).join("")}
+
+                </div>
+
+            </section>
+        `;
+
+    }).join("");
+
+}
+
+
+// ENTRAR AL MENÚ
+
+document.getElementById("enterMenu")
+.addEventListener("click", () => {
+
+    document.getElementById("coverScreen")
+    .style.display = "none";
+
+    document.getElementById("menuScreen")
+    .classList.add("visible");
+
+    window.scrollTo(0, 0);
+
+});
+
+
+// VOLVER A PORTADA
+
+document.getElementById("backCover")
+.addEventListener("click", () => {
+
+    document.getElementById("menuScreen")
+    .classList.remove("visible");
+
+    document.getElementById("coverScreen")
+    .style.display = "grid";
+
+    window.scrollTo(0, 0);
+
+});
+
+
+// CAMBIAR CATEGORÍAS
+
+document.getElementById("categories")
+.addEventListener("click", event => {
+
+    const button = event.target.closest(
+        "button[data-category]"
+    );
+
+    if (!button) return;
+
+    selected = button.dataset.category;
+
+    document.querySelectorAll(".category")
+    .forEach(btn => {
+
+        btn.classList.toggle(
+            "active",
+            btn === button
+        );
+
+    });
+
+    renderMenu();
+
+});
+
+
+// INICIAR
+
+renderMenu();
+
+</script>
+
+</body>
+</html>
